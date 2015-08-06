@@ -26,34 +26,13 @@ angular
             $scope.state = {};
             $scope.state.movies = [];
             $scope.qday = null;
-            $scope.dates = [];
-            // $scope.addItem = function() {
-            //     if (!$scope.state.newItem) {
-            //         windowAlert("text field must be non-empty");
-            //     } else {
-            //         $http
-            //             .post('/todoAdd', {
-            //                 item: $scope.state.newItem
-            //             })
-            //             .success(function(data, status, headers, config) {
-            //                 if (data.success) {
-            //                     $scope.retrieveLastNItems(
-            //                         $scope.state.retrieveNr
-            //                     );
-            //                 } else {
-            //                     windowAlert('Adding of item failed');
-            //                 }
-            //             })
-            //             .error(function(data, status, headers, config) {
-            //             });
-            //     }
-            // };
+            $scope.state.dates = [];
 
             $scope.getDates = function() {
                 $http
-                    .get('/getD')
+                    .get('/getDates')
                     .success(function(data) {
-                        $scope.dates = data.dates;
+                        $scope.state.dates = data.dates;
                     })
                     .error(function() {
                         windowAlert("Retrieval failed");
@@ -69,6 +48,11 @@ angular
                     .error(function() {
                         windowAlert("Retrieval failed");
                     });
+            };
+
+            $scope.getAllDates = function() {
+                $scope.getDates();
+                console.log($scope.state.dates);
             };
 
             $scope.getTopTenOfDay = function(n) {

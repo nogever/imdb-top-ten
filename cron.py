@@ -22,7 +22,7 @@ add_movie = ("INSERT INTO movies "
                "(rank, title, year, rating, number_of_votes, date_id) "
                "VALUES (?, ?, ?, ?, ?, ?)")
 
-now = datetime.datetime(2009,5,5)
+now = datetime.datetime.now()
 str_now = now.date().isoformat()
 _cursor.execute("INSERT INTO days(dates) VALUES (?)", (str_now,))
 date_id = _cursor.lastrowid

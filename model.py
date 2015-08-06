@@ -13,16 +13,19 @@ class MovieModel:
 
     @classmethod
     def top_ten(cls, id):
-        rows = _cursor.execute(
+        _cursor.execute(
             'select * from movies where date_id={day_id}' . format(day_id = id)
         )
-        return [r['rank'] for r in rows]
+        rows = _cursor.fetchall()
+        return [dict(r) for r in rows]
 
-    def get_all_dates():
-        rows = _cursor.execute(
-            'select * from dates'
-            )
-        return [r['date'] for r in rows]
+    @classmethod
+    def get_all_dates(d):
+        _cursor.execute(
+            'select * from days'
+        )
+        rows = _cursor.fetchall()
+        return [r['dates'] for r in rows]
 
 
 

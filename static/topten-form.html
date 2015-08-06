@@ -1,0 +1,24 @@
+<form method="GET" ng-submit="addItem()">
+    <select ng-model="dates" ng-options="date for date in dates">
+        <option value="">Select Date</option>
+    </select>
+</form>
+
+<button class="btn" ng-click="getTopTenOfDay()">
+    Get Today's Top Ten List
+</button>
+<button class="btn" ng-click="getDates()">
+    Get Dates
+</button>
+
+<ul id="top-ten">
+    <li ng-repeat="movie in state.movies">
+        <span class="rank">{{ movie.rank }}</span>
+        <span class="title">{{ movie.title }}</span>
+        <span class="year">({{ movie.year }})</span>
+        <span class="rating">{{ movie.rating }}</span>
+        <span class="votes">{{ movie.numberOfVotes }}</span>
+    </li>
+</ul>
+
+{{ state.movies | json }}

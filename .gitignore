@@ -1,0 +1,7 @@
+__pycache__
+static/angular-route.js
+static/angular.js
+static/jquery-2.1.4.js
+tmp
+venv
+.DS_Store

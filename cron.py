@@ -1,3 +1,4 @@
+#!/usr/local/bin/python3
 import sqlite3
 import datetime
 from urllib.request import urlopen
@@ -39,7 +40,7 @@ for x in range(0, 10):
 
 _conn.commit()
 
-#run the crawler once everyday
+#run the crawler once a day
 cron = CronTab()
 job = cron.new(command='python3 cron.py')
 job.hour.on(6)

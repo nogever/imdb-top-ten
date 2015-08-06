@@ -25,7 +25,7 @@ class MovieModel:
             'select * from days'
         )
         rows = _cursor.fetchall()
-        return [r['dates'] for r in rows]
+        return [dict(r) for r in rows]
 
 
 

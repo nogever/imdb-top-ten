@@ -1,15 +1,9 @@
 <form method="GET" ng-submit="addItem()">
-    <select ng-model="dates" ng-options="date for date in dates">
-        <option value="">Select Date</option>
-    </select>
+    <select 
+        ng-model="queriedDate" 
+        ng-options="date.dates for date in state.dates"
+        ng-change="getTopTenOfDay({{queriedDate.id}})"></select>
 </form>
-
-<button class="btn" ng-click="getTopTenOfDay()">
-    Get Today's Top Ten List
-</button>
-<button class="btn" ng-click="getAllDates()">
-    Get Dates
-</button>
 
 <ul id="top-ten">
     <li ng-repeat="movie in state.movies">

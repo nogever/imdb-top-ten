@@ -1,6 +1,5 @@
 from flask import request, jsonify, render_template
 from model import MovieModel
-
 import flask.views
 import json
 

@@ -4,11 +4,12 @@ angular
         $routeProvider
             .when('/', {
                 templateUrl: '../static/topten-form.html',
-                controller: 'TopTenController'
-            })
-            .when('/secondPage', {
-                templateUrl: '../static/secondPage.html',
-                controller: 'SecondController'
+                controller: 'TopTenController',
+                resolve: {
+                    allDates: function(IMDB) {
+                        return IMDB.getDates();
+                    }
+                }
             })
             .otherwise({ redirectTo: '/' });
     }])
@@ -18,26 +19,35 @@ angular
             return $window.alert;
         }
     ])
+    .factory('IMDB', [
+        '$http',
+        function($http) {
+        var sdo = {
+            getDates: function() {
+              var promise = $http({ 
+                method: 'GET', 
+                url: '/getDates' 
+              });
+              promise.success(function(data, status, headers, conf) {
+                console.log('hello');
+                return data;
+              });
+              return promise;
+            }
+          }
+        return sdo;
+    }])
     .controller('TopTenController', [
         '$scope',
         '$http',
         'windowAlert',
-        function($scope, $http, windowAlert) {
+        'allDates',
+        function($scope, $http, windowAlert, allDates) {
             $scope.state = {};
             $scope.state.movies = [];
-            $scope.qday = null;
-            $scope.state.dates = [];
-
-            $scope.getDates = function() {
-                $http
-                    .get('/getDates')
-                    .success(function(data) {
-                        $scope.state.dates = data.dates;
-                    })
-                    .error(function() {
-                        windowAlert("Retrieval failed");
-                    });
-            };
+            $scope.state.dates = allDates.data.dates;
+            $scope.state.dates.unshift({dates: 'select date'});
+            $scope.queriedDate = $scope.state.dates[0];
 
             $scope.getMovies = function() {
                 $http
@@ -50,14 +60,8 @@ angular
                     });
             };
 
-            $scope.getAllDates = function() {
-                $scope.getDates();
-                console.log($scope.state.dates);
-            };
-
             $scope.getTopTenOfDay = function(n) {
-                $scope.qday = n;
-                $scope.getMovies($scope.qday);
+                $scope.getMovies(n);
             };
         }
     ])

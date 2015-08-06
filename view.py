@@ -7,6 +7,15 @@ class TopTenView(flask.views.MethodView):
     def get(self):
         return render_template('show_entries.html')
 
+class AllMovies(flask.views.MethodView):
+    def get(self):
+        allMovies = MovieModel.get_all()
+
+        return jsonify({
+            'success': True,
+            'movies': movies
+        })
+
 class TodaysTopTen(flask.views.MethodView):
     def get(self):
         queried_date = '2015-08-05'
@@ -26,3 +35,4 @@ class AllDates(flask.views.MethodView):
             'success': True,
             'dates': dates
         })
+

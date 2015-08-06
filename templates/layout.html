@@ -1,19 +1,16 @@
 <!doctype html>
-<title>Flaskr</title>
+<title>IMDB Top Ten Movies</title>
 <head>
   <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
   <script src="{{ url_for('static', filename='jquery-2.1.4.js') }}">
   </script>
   <script src="{{ url_for('static', filename='angular.js') }}"></script>
-  <script src="{{ url_for('static', filename='angular-route.js') }}">
-  </script>
+  <script src="{{ url_for('static', filename='angular-route.js') }}"></script>
+  <script src="{{ url_for('static', filename='angular-local-storage.js') }}"></script>
   
 </head>
 <body>
 <div class="page">
-  <h1>Top 10 Movies</h1>
-  <h5>{{ queriedDate }}</h5>
-
   {% block content %}{% endblock %}
 </div>
 </body>

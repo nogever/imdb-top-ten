@@ -1,10 +1,12 @@
 {% extends "layout.html" %}
 {% block content %}
-
-<div ng-app="IMDBTopTenApp">
-  <div ng-view></div>
-</div>
-
+<section id="top-ten">
+    <h1>Top 10 Movies</h1>
+    <h5>{{ queriedDate }}</h5>
+    <div ng-app="IMDBTopTenApp">
+        <div ng-view></div>
+    </div>
+</section>
 <script src="/static/topten.js">
 </script>
 

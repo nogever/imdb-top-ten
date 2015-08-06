@@ -8,6 +8,9 @@ angular
                 resolve: {
                     allDates: function(IMDB) {
                         return IMDB.getDates();
+                    },
+                    allMovies: function(IMDB) {
+                        return IMDB.getMovies();
                     }
                 }
             })
@@ -29,12 +32,21 @@ angular
                 url: '/getDates' 
               });
               promise.success(function(data, status, headers, conf) {
-                console.log('hello');
                 return data;
               });
               return promise;
+            },
+            getMovies: function() {
+                var promise = $http({
+                    method: 'GET',
+                    url: '/getTop'
+                });
+                promise.success(function(data, status, headers, conf) {
+                    return data;
+                });
+                return promise;
             }
-          }
+        }
         return sdo;
     }])
     .controller('TopTenController', [
@@ -42,30 +54,37 @@ angular
         '$http',
         'windowAlert',
         'allDates',
-        function($scope, $http, windowAlert, allDates) {
+        'allMovies',
+        function($scope, $http, windowAlert, allDates, allMovies) {
             $scope.state = {};
-            $scope.state.movies = [];
+            $scope.state.movies = allMovies.data.movies;
             $scope.state.dates = allDates.data.dates;
-            $scope.state.dates.unshift({dates: 'select date'});
             $scope.queriedDate = $scope.state.dates[0];
+            window.localStorage['allMovies'] = angular.toJson(allMovies.data.movies);
 
             $scope.getMovies = function() {
-                $http
-                    .get('/getTop')
-                    .success(function(data) {
-                        $scope.state.movies = data.movies;
-                    })
-                    .error(function() {
-                        windowAlert("Retrieval failed");
-                    });
+                $scope.state.movies = window.localStorage['allMovies'];
             };
 
-            $scope.getTopTenOfDay = function(n) {
-                $scope.getMovies(n);
-            };
+            $scope.getMoviesOfDay = function(n) {
+                var allMovies = window.localStorage['allMovies'];
+                var allDates = $scope.state.dates;
+                var qDay = $scope.queriedDate;
+                var qDayId; 
+                var moviesOfDay = [];
+                for (var d = 0; d < allDates.length; d += 1) {
+                    if (allDates[d]['dates'] == qDay) {
+                        qDayId = allDates[d]['id'];
+                    }
+                }
+                for (var i = 0; i < allMovies.length; i += 1) {
+                    if (allMovies[i]['date_id'] == qDayId) {
+                        moviesOfDay.push(allMovies[i]);
+                    }
+                }
+            }
         }
-    ])
-    ;
+    ]);
 
 
 

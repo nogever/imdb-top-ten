@@ -1,0 +1,43 @@
+#top-ten {
+    width: 70%;
+    margin: auto;
+}
+#top-ten ul,
+#top-ten li:not(.thead) {
+    padding: 0;
+    margin: 0;
+}
+#top-ten li {
+    line-height: 200%;
+    list-style-type: none;
+}
+#top-ten li span {
+    display: inline-block;
+    box-sizing: border-box;
+    padding: 2px 6px;
+}
+#top-ten li .rank {
+    width: 5%;
+}
+#top-ten li .title {
+    width: 55%;
+}
+#top-ten li .year {
+    width: 15%;
+}
+#top-ten li .rating {
+    width: 10%;
+}
+#top-ten li .votes {
+    width: 10%;
+    text-align: right;
+}
+
+form {
+    margin: 20px;
+}
+.thead {
+    border-bottom: 1px solid #bcbcbc;
+    padding: 10px 0px;
+    margin: 20px 0;
+}

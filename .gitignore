@@ -5,3 +5,5 @@ static/jquery-2.1.4.js
 tmp
 venv
 .DS_Store
+db.db
+imdbtopten.db
